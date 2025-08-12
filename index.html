@@ -272,50 +272,62 @@
 
         <!-- BOOKING FORM -->
         <div>
-          <form id="bookingForm" class="card-form" autocomplete="off">
-            <strong style="color:var(--silver)">Book a Consultation</strong>
-            <label for="bk-name">Full name</label>
-            <input id="bk-name" type="text" placeholder="Your name" required>
+          <h2>Book an Appointment</h2>
+<form id="booking-form" action="https://formspree.io/f/xyzpojvj" method="POST">
+  <input type="text" name="name" placeholder="Full Name" required />
+  <input type="email" name="_replyto" placeholder="Email" required />
+  <input type="tel" name="phone" placeholder="Phone Number" required />
+  <input type="date" name="date" required />
+  <input type="time" name="time" required />
+  <textarea name="details" placeholder="Case Details" required></textarea>
+  <button type="submit">Book Appointment</button>
+</form>
 
-            <label for="bk-phone">Phone</label>
-            <input id="bk-phone" type="tel" placeholder="10-digit phone" inputmode="tel" required>
+<script>
+document.getElementById('booking-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var form = event.target;
 
-            <label for="bk-date">Preferred date</label>
-            <input id="bk-date" type="date" required>
+  fetch(form.action, {
+    method: form.method,
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(response => {
+    if (response.ok) {
+      alert('Booking request sent successfully!');
+      form.reset();
+    } else {
+      alert('Oops! There was a problem submitting your booking.');
+    }
+  }).catch(() => {
+    alert('Oops! There was a problem submitting your booking.');
+  });
+});
+</script>
 
-            <label for="bk-time">Preferred time</label>
-            <input id="bk-time" type="time" required>
-
-            <label for="bk-note">Brief note</label>
-            <textarea id="bk-note" placeholder="Short summary of your case (optional)"></textarea>
-
-            <div class="form-actions">
-              <button type="submit" class="btn">Request Booking</button>
-              <button type="button" id="bkClear" class="btn ghost">Clear</button>
-            </div>
-
-            <div style="margin-top:10px" class="small-muted">Saved bookings (local):</div>
-            <div id="bk-list" style="margin-top:8px;max-height:140px;overflow:auto;border-radius:8px;padding:8px;border:1px dashed rgba(255,255,255,0.03);background:transparent"></div>
-          </form>
         </div>
       </div>
 
       <!-- CONTACT MESSAGE FORM -->
       <div style="margin-top:22px" class="reveal">
-        <form id="contactForm" class="card-form">
-          <strong style="color:var(--silver)">Send a Message</strong>
-          <label for="c-name">Full name</label>
-          <input id="c-name" type="text" placeholder="Your name" required>
+        <form id="contactForm" class="card-form" action="https://formspree.io/f/mwpqybjy" method="POST">
+  <strong style="color:var(--silver)">Send a Message</strong>
 
-          <label for="c-phone">Phone</label>
-          <input id="c-phone" type="tel" placeholder="Your phone" required>
+  <label for="c-name">Full name</label>
+  <input id="c-name" name="name" type="text" placeholder="Your name" required>
 
-          <label for="c-message">Message</label>
-          <textarea id="c-message" placeholder="How can we help?" required></textarea>
+  <label for="c-phone">Phone</label>
+  <input id="c-phone" name="phone" type="tel" placeholder="Your phone" required>
 
-          <div class="form-actions">
-            <button type="submit" class="btn">Send Message</button>
-            <button type="button" id="cClear" class="btn ghost">Reset</button>
+  <label for="c-message">Message</label>
+  <textarea id="c-message" name="message" placeholder="How can we help?" required></textarea>
+
+  <div class="form-actions">
+    <button type="submit" class="btn">Send Message</button>
+    <button type="button" id="cClear" class="btn ghost">Reset</button>
+  </div>
+</form>
+
           </div>
 
           <div style="margin-top:10px" class="small-muted">Messages are saved locally for testing. Add server-side sending later.</div>
@@ -459,5 +471,38 @@
       cClear && cClear.addEventListener('click', () => cForm.reset());
     })();
   </script>
+
+  <!-- tumhara pura HTML content -->
+
+<script>
+  // yahan JS code daalo
+  document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const form = event.target;
+
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if (response.ok) {
+        alert('Message sent successfully!');
+        form.reset();
+      } else {
+        alert('Oops! There was a problem sending your message.');
+      }
+    }).catch(() => {
+      alert('Oops! There was a problem sending your message.');
+    });
+  });
+
+  document.getElementById('cClear').addEventListener('click', () => {
+    document.getElementById('contactForm').reset();
+  });
+</script>
+
+</body>
+</html>
+
 </body>
 </html>
